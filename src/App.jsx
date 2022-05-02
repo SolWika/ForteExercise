@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
-import "./App.css";
 
 import EditIntern from "./components/pages/EditIntern";
-import InternList from "./components/pages/InternList";
+import InternList from "./components/pages/InternList/InternList";
 
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styles/themes";
@@ -20,6 +19,7 @@ function App() {
     setTheme(updatedTheme);
     localStorage.setItem("theme", updatedTheme);
   };
+
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     const prefersDark =
@@ -31,16 +31,16 @@ function App() {
       setTheme("dark");
     }
   }, []);
+
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <GlobalStyles />
 
-      <div className="App">
-        <Routes>
-          <Route path="/interns/:id" exact element={<EditIntern />} />
-          <Route path="/" element={<InternList />} />
-        </Routes>
-      </div>
+      <Routes>
+        <Route path="/interns/:id" exact element={<EditIntern />} />
+        <Route path="/" element={<InternList />} />
+      </Routes>
+
       <button onClick={() => themeToggler()}>Change Theme</button>
     </ThemeProvider>
   );

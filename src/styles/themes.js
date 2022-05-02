@@ -1,8 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyles = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+*{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
 	body {
+		min-height: 100vh;
+		width:100vw;
 		background-color: ${(props) => props.theme.body};
         font-family: 'Roboto', sans-serif;
 	}
