@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import EditIntern from "./components/pages/EditIntern";
-import InternList from "./components/pages/InternList/InternList";
-
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styles/themes";
 import { lightTheme } from "./styles/lightTheme";
 import { darkTheme } from "./styles/darkTheme";
+
+import EditIntern from "./components/pages/EditIntern/EditIntern";
+import InternList from "./components/pages/InternList/InternList";
 
 function App() {
   const [theme, setTheme] = useState("light");
