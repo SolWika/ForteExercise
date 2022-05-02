@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { InternListContainer, ListContainer, Header, UnorderedList } from "./InternList.style";
+import { PageContainer, MainContainer } from "../../../styles/Globals.style";
+import { Header, List } from "./InternList.style";
 import { Nav } from "../../Nav/Nav";
 import { ItemList } from "../../ItemList/ItemList";
 
@@ -18,17 +19,17 @@ const InternList = () => {
 
   return (
     <>
-      <Nav />
-      <InternListContainer>
-        <ListContainer>
+      <PageContainer>
+        <Nav />
+        <MainContainer>
           <Header>Participants</Header>
-          <UnorderedList>
+          <List>
             {interns.map((u) => (
               <ItemList id={u.id} name={u.name} key={u.id} />
             ))}
-          </UnorderedList>
-        </ListContainer>
-      </InternListContainer>
+          </List>
+        </MainContainer>
+      </PageContainer>
     </>
   );
 };
