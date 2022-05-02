@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router";
-import { NavLink } from "react-router-dom";
+import { PageContainer, MainContainer } from "../../../styles/Globals.style";
+import { BackLinkWrapper, BackLink, Back, Header } from "./EditIntern.style";
+import { BackIcon } from "../../../styles/Icon.style";
+import { Nav } from "../../Nav/Nav";
 
 const EditIntern = () => {
   const { id } = useParams();
@@ -11,17 +14,28 @@ const EditIntern = () => {
   }, [id]);
 
   return (
-    <div>
-      <NavLink to="/">Back to list </NavLink>
-      <form>
-        <label>Name</label>
-        <input type="text" name="name" />
-        <label>Email</label>
-        <input type="text" name="email" />
+    <>
+      <PageContainer>
+        <Nav />
+        <BackLinkWrapper>
+          <BackLink to="/">
+            <BackIcon />
+            <Back>Back to list </Back>
+          </BackLink>
+        </BackLinkWrapper>
+        <MainContainer>
+          <Header>Edit</Header>
+          <form>
+            <label>Name</label>
+            <input type="text" name="name" />
+            <label>Email</label>
+            <input type="text" name="email" />
 
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+            <input type="submit" value="Submit" />
+          </form>
+        </MainContainer>
+      </PageContainer>
+    </>
   );
 };
 
