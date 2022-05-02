@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  InternListContainer,
-  ListContainer,
-  Header,
-  UnorderedList,
-} from "./InternList.style";
+import { InternListContainer, ListContainer, Header, UnorderedList } from "./InternList.style";
 import { Nav } from "../../Nav/Nav";
 import { ItemList } from "../../ItemList/ItemList";
 
