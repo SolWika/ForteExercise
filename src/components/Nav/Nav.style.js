@@ -7,18 +7,18 @@ export const NavContainer = styled.nav`
   width: 100vw;
   background-color: transparent;
 
-  @media (min-width: 700px) {
+  /* @media (min-width: 700px) {
     position: fixed;
     top: 0;
     left: 0;
     z-index: -1;
-  }
+  } */
 `;
 export const LogoContainer = styled.div`
-  margin: 10px 10px;
+  margin: 10px 10px 0;
   height: 80px;
 
   @media (min-width: 700px) {
-    margin: 40px 40px;
+    margin: 40px 40px 0;
   }
 `;
