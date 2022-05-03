@@ -1,27 +1,58 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import { NavLink } from "react-router-dom";
-
+import { PageContainer, MainContainer } from "../../../styles/Globals.style";
+import { BackLinkWrapper, BackLink, Back, Header } from "./EditIntern.style";
+import { BackIcon } from "../../../styles/Icon.style";
+import { Nav } from "../../Nav/Nav";
+import { FormCard } from "../../FormCard/FormCard";
 const EditIntern = () => {
   const { id } = useParams();
+  const [intern, setIntern] = useState({});
 
   useEffect(() => {
-    //TODO: get intern from REST api http://localhost:3001/interns/:id
-    console.log(`I want to get intern with id: ${id}!`);
+    const fetchIntern = async () => {
+      const response = await fetch(`http://localhost:3001/interns/${id}`);
+      // console.log(response);
+      //TODO obsługa błędów
+      const data = await response.json();
+      console.log(data);
+      setIntern(data);
+    };
+
+    fetchIntern();
   }, [id]);
 
-  return (
-    <div>
-      <NavLink to="/">Back to list </NavLink>
-      <form>
-        <label>Name</label>
-        <input type="text" name="name" />
-        <label>Email</label>
-        <input type="text" name="email" />
+  // useEffect(() => {
+  //   //TODO: get intern from REST api http://localhost:3001/interns/:id
+  //   console.log(`I want to get intern with id: ${id}!`);
+  // }, [id]);
 
-        <input type="submit" value="Submit" />
-      </form>
-    </div>
+  return (
+    <>
+      <PageContainer>
+        <Nav />
+        <BackLinkWrapper>
+          <BackLink to="/">
+            <BackIcon />
+            <Back>Back to list </Back>
+          </BackLink>
+        </BackLinkWrapper>
+        <MainContainer>
+          <Header>Edit</Header>
+
+          <FormCard intern={intern} />
+
+          {/* <form>
+            <label>Name</label>
+            <input type="text" name="name" />
+            <label>Email</label>
+            <input type="text" name="email" />
+
+            <input type="submit" value="Submit" />
+          </form> */}
+        </MainContainer>
+      </PageContainer>
+    </>
   );
 };
 
