@@ -1,13 +1,39 @@
-import React from "react";
+import { useState } from "react";
 import { Formik } from "formik";
-import { EditForm, FieldContainer, Label, StyledField, StyledInlineErrorMessage, Button } from "./FormCard.style";
+import {
+  EditForm,
+  FieldContainer,
+  Label,
+  StyledField,
+  StyledInlineErrorMessage,
+  DateContainer,
+  DatePickerContainer,
+  Button,
+} from "./FormCard.style";
 import { WarningIcon } from "../../styles/Icon.style";
-export const FormCard = (props) => {
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import { format, parseISO } from "date-fns";
+import en from "date-fns/locale/es";
+registerLocale("en", en);
+
+export const FormCard = ({ intern }) => {
+  const dateFormatted = format(new Date("2021-09-20T12:12:36.166584+02:00"), "dd.MM.yyyy");
+  console.log(dateFormatted);
+  const [startDate, setStartDate] = useState(new Date("2022/02/08"));
+  const [endDate, setEndDate] = useState(new Date("2022/02/10"));
+  setDefaultLocale("en");
   return (
     <>
       <Formik
         enableReinitialize
-        initialValues={{ name: props.intern.name || "", email: props.intern.email || "" }}
+        initialValues={{
+          name: intern.name || "",
+          email: intern.email || "",
+          startDate: intern.internshipStart || "",
+          endDate: intern.internshipEnd || "",
+        }}
         validate={(values) => {
           const errors = {};
 
@@ -19,6 +45,9 @@ export const FormCard = (props) => {
 
           if (!values.name) {
             errors.name = "This Field is required";
+          }
+          if (!values.startDate) {
+            errors.startDate = "This Field is required";
           }
 
           return errors;
@@ -57,6 +86,43 @@ export const FormCard = (props) => {
               <WarningIcon className={errors.email && touched.email ? "invalid" : null} />
               <StyledInlineErrorMessage name="email" component="div" />
             </FieldContainer>
+
+            <DateContainer>
+              <DatePickerContainer>
+                <Label>Internship start *</Label>
+                <DatePicker
+                  className={errors.email && touched.email ? "invalid" : null}
+                  wrapperClassName="date-picker"
+                  locale="en"
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  dateFormat="dd.MM.yyyy"
+                  // value={values.startDate}
+                />
+                <WarningIcon className={errors.startDate && touched.startDate ? "invalid" : null} />
+                <StyledInlineErrorMessage name="startDate" component="div" />
+              </DatePickerContainer>
+
+              <DatePickerContainer>
+                <Label>Internship end *</Label>
+                <DatePicker
+                  wrapperClassName="date-picker"
+                  locale="en"
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  dateFormat="dd.MM.yyyy"
+                />
+                <WarningIcon className={errors.startDate && touched.startDate ? "invalid" : null} />
+                <StyledInlineErrorMessage name="email" component="div" />
+              </DatePickerContainer>
+            </DateContainer>
 
             <Button type="submit" disabled={isSubmitting}>
               Submit

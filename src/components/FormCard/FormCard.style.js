@@ -58,6 +58,30 @@ export const StyledInlineErrorMessage = styled(ErrorMessage)`
   }
 `;
 
+export const DateContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 152px;
+`;
+export const DatePickerContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  .date-picker input {
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 12px 16px;
+    width: 100%;
+    height: 48px;
+    background: #f7f7f7;
+    font-family: "Roboto";
+    font-size: 18px;
+    color: black;
+  }
+`;
+
 export const Button = styled.button`
   width: 224px;
   height: 48px;
