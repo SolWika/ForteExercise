@@ -8,12 +8,12 @@ export const EditLink = styled(NavLink)`
 `;
 
 export const Pharagrapf = styled.p`
-  color: black;
+  color: ${(props) => props.theme.fontColor};
   font-size: 18px;
   line-height: 24px;
 `;
 export const Edit = styled.p`
-  color: black;
+  color: ${(props) => props.theme.fontColor};
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;

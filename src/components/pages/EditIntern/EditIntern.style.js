@@ -25,7 +25,7 @@ export const BackLink = styled(NavLink)`
 `;
 
 export const Back = styled.p`
-  color: black;
+  color: ${(props) => props.theme.buttons.text};
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;

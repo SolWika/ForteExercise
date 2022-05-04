@@ -6,7 +6,7 @@ export const Nav = () => {
   return (
     <>
       <NavContainer>
-        <LogoContainer>
+        <LogoContainer to={`/`}>
           <Logo />
         </LogoContainer>
       </NavContainer>

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { NavLink } from "react-router-dom";
 
 export const NavContainer = styled.nav`
   display: flex;
@@ -6,15 +7,9 @@ export const NavContainer = styled.nav`
   justify-content: flex-start;
   width: 100vw;
   background-color: transparent;
-
-  /* @media (min-width: 700px) {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-  } */
 `;
-export const LogoContainer = styled.div`
+
+export const LogoContainer = styled(NavLink)`
   margin: 10px 10px 0;
   height: 80px;
 

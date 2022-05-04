@@ -19,7 +19,7 @@ export const MainContainer = styled.main`
   padding: 20px 40px;
   min-width: 250px;
   min-height: 300px;
-  background-color: #f7f7f7;
+  background-color: ${(props) => props.theme.background};
   @media (min-width: 700px) {
     padding: 40px 80px 80px;
     width: 656px;

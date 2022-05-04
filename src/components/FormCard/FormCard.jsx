@@ -1,4 +1,5 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import {
   EditForm,
@@ -14,16 +15,15 @@ import { WarningIcon } from "../../styles/Icon.style";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
-import { format, parseISO } from "date-fns";
 import en from "date-fns/locale/es";
-registerLocale("en", en);
 
 export const FormCard = ({ intern }) => {
-  const dateFormatted = format(new Date("2021-09-20T12:12:36.166584+02:00"), "dd.MM.yyyy");
-  console.log(dateFormatted);
-  const [startDate, setStartDate] = useState(new Date("2022/02/08"));
-  const [endDate, setEndDate] = useState(new Date("2022/02/10"));
+  const navigate = useNavigate();
+  const [startDate, setStartDate] = useState(new Date(intern.internshipStart));
+  const [endDate, setEndDate] = useState(new Date(intern.internshipEnd));
+  registerLocale("en", en);
   setDefaultLocale("en");
+
   return (
     <>
       <Formik
@@ -49,17 +49,31 @@ export const FormCard = ({ intern }) => {
           if (!values.startDate) {
             errors.startDate = "This Field is required";
           }
+          if (!values.endDate) {
+            errors.endDate = "This Field is required";
+          }
 
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          let data = {
+            id: intern.id,
+            name: values.name,
+            email: values.email,
+            internshipStart: values.startDate,
+            internshipEnd: values.endDate,
+          };
+          setSubmitting(true);
+          fetch(`http://localhost:3001/interns/${intern.id}`, {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          setSubmitting(false);
+          // navigate("/");
         }}
       >
-        {({ isSubmitting, errors, touched, values }) => (
+        {({ isSubmitting, errors, touched, values, setFieldValue }) => (
           <EditForm>
             <FieldContainer>
               <Label>Full name *</Label>
@@ -95,12 +109,14 @@ export const FormCard = ({ intern }) => {
                   wrapperClassName="date-picker"
                   locale="en"
                   selected={startDate}
-                  onChange={(date) => setStartDate(date)}
+                  onChange={(date) => {
+                    setFieldValue("startDate", date);
+                    setStartDate(date);
+                  }}
                   selectsStart
                   startDate={startDate}
                   endDate={endDate}
                   dateFormat="dd.MM.yyyy"
-                  // value={values.startDate}
                 />
                 <WarningIcon className={errors.startDate && touched.startDate ? "invalid" : null} />
                 <StyledInlineErrorMessage name="startDate" component="div" />
@@ -112,15 +128,18 @@ export const FormCard = ({ intern }) => {
                   wrapperClassName="date-picker"
                   locale="en"
                   selected={endDate}
-                  onChange={(date) => setEndDate(date)}
+                  onChange={(date) => {
+                    setFieldValue("endDate", date);
+                    setEndDate(date);
+                  }}
                   selectsEnd
                   startDate={startDate}
                   endDate={endDate}
                   minDate={startDate}
                   dateFormat="dd.MM.yyyy"
                 />
-                <WarningIcon className={errors.startDate && touched.startDate ? "invalid" : null} />
-                <StyledInlineErrorMessage name="email" component="div" />
+                <WarningIcon className={errors.endDate && touched.endDate ? "invalid" : null} />
+                <StyledInlineErrorMessage name="endDate" component="div" />
               </DatePickerContainer>
             </DateContainer>
 

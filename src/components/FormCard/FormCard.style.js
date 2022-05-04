@@ -23,7 +23,7 @@ export const Label = styled.label`
 
   font-weight: 500;
   font-size: 18px;
-  color: black;
+  color: ${(props) => props.theme.fontColor};
 `;
 
 export const StyledField = styled(Field)`
@@ -32,10 +32,10 @@ export const StyledField = styled(Field)`
   padding: 12px 16px;
   width: 100%;
   height: 48px;
-  background: #f7f7f7;
+  background: ${(props) => props.theme.colors.primary};
   font-family: "Roboto";
   font-size: 18px;
-  color: black;
+  color: ${(props) => props.theme.fontColor};
   &:focus {
     border: 2px solid #222222;
     box-shadow: 0px 0px 0px 2px #d3f2ff;
@@ -75,10 +75,10 @@ export const DatePickerContainer = styled.div`
     padding: 12px 16px;
     width: 100%;
     height: 48px;
-    background: #f7f7f7;
+    background: ${(props) => props.theme.colors.primary};
     font-family: "Roboto";
     font-size: 18px;
-    color: black;
+    color: ${(props) => props.theme.fontColor};
   }
 `;
 
