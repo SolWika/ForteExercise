@@ -4,7 +4,7 @@ export const lightTheme = {
   fontColor: "#000",
   buttons: {
     background: "#222222",
-    text: "#FFFFFF",
+    text: "#000",
   },
   colors: {
     primary: "#ededed",

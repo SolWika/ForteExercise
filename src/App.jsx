@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
+import { DarkModeSwitch } from "react-toggle-dark-mode";
 
 import { ThemeProvider } from "styled-components";
 import { GlobalStyles } from "./styles/themes";
@@ -41,7 +42,13 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
-      <button onClick={() => themeToggler()}>Change Theme</button>
+      <DarkModeSwitch
+        style={{ position: "fixed", top: "40px", right: "40px" }}
+        checked={isDarkTheme}
+        onChange={() => themeToggler()}
+        size={50}
+        onClick={() => themeToggler()}
+      />
     </ThemeProvider>
   );
 }
