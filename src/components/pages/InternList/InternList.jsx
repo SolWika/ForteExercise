@@ -10,7 +10,6 @@ const InternList = () => {
   useEffect(() => {
     const fetchInterns = async () => {
       const response = await fetch("http://localhost:3001/interns");
-      console.log(response);
       const interns = await response.json();
       setInterns(interns);
     };

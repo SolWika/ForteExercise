@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik } from "formik";
-import { EditForm, FieldContainer, Label, StyledField, StyledInlineErrorMessage, Button } from "./FormCard.style";
+import {
+  EditForm,
+  FieldContainer,
+  Label,
+  StyledField,
+  StyledInlineErrorMessage,
+  DateContainer,
+  DatePickerContainer,
+  Button,
+} from "./FormCard.style";
 import { WarningIcon } from "../../styles/Icon.style";
-export const FormCard = (props) => {
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import en from "date-fns/locale/es";
+
+export const FormCard = ({ intern }) => {
+  const [startDate, setStartDate] = useState(new Date(intern.internshipStart));
+  const [endDate, setEndDate] = useState(new Date(intern.internshipEnd));
+  registerLocale("en", en);
+  setDefaultLocale("en");
+
   return (
     <>
       <Formik
         enableReinitialize
-        initialValues={{ name: props.intern.name || "", email: props.intern.email || "" }}
+        initialValues={{
+          name: intern.name || "",
+          email: intern.email || "",
+          startDate: intern.internshipStart || "",
+          endDate: intern.internshipEnd || "",
+        }}
         validate={(values) => {
           const errors = {};
 
@@ -20,17 +44,33 @@ export const FormCard = (props) => {
           if (!values.name) {
             errors.name = "This Field is required";
           }
+          if (!values.startDate) {
+            errors.startDate = "This Field is required";
+          }
+          if (!values.endDate) {
+            errors.endDate = "This Field is required";
+          }
 
           return errors;
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          let data = {
+            id: intern.id,
+            name: values.name,
+            email: values.email,
+            internshipStart: values.startDate,
+            internshipEnd: values.endDate,
+          };
+          setSubmitting(true);
+          fetch(`http://localhost:3001/interns/${intern.id}`, {
+            method: "PUT",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(data),
+          });
+          setSubmitting(false);
         }}
       >
-        {({ isSubmitting, errors, touched, values }) => (
+        {({ isSubmitting, errors, touched, values, setFieldValue }) => (
           <EditForm>
             <FieldContainer>
               <Label>Full name *</Label>
@@ -57,6 +97,48 @@ export const FormCard = (props) => {
               <WarningIcon className={errors.email && touched.email ? "invalid" : null} />
               <StyledInlineErrorMessage name="email" component="div" />
             </FieldContainer>
+
+            <DateContainer>
+              <DatePickerContainer>
+                <Label>Internship start *</Label>
+                <DatePicker
+                  className={errors.email && touched.email ? "invalid" : null}
+                  wrapperClassName="date-picker"
+                  locale="en"
+                  selected={startDate}
+                  onChange={(date) => {
+                    setFieldValue("startDate", date);
+                    setStartDate(date);
+                  }}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                  dateFormat="dd.MM.yyyy"
+                />
+                <WarningIcon className={errors.startDate && touched.startDate ? "invalid" : null} />
+                <StyledInlineErrorMessage name="startDate" component="div" />
+              </DatePickerContainer>
+
+              <DatePickerContainer>
+                <Label>Internship end *</Label>
+                <DatePicker
+                  wrapperClassName="date-picker"
+                  locale="en"
+                  selected={endDate}
+                  onChange={(date) => {
+                    setFieldValue("endDate", date);
+                    setEndDate(date);
+                  }}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  dateFormat="dd.MM.yyyy"
+                />
+                <WarningIcon className={errors.endDate && touched.endDate ? "invalid" : null} />
+                <StyledInlineErrorMessage name="endDate" component="div" />
+              </DatePickerContainer>
+            </DateContainer>
 
             <Button type="submit" disabled={isSubmitting}>
               Submit

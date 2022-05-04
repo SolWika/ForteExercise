@@ -8,6 +8,7 @@ import { darkTheme } from "./styles/darkTheme";
 
 import EditIntern from "./components/pages/EditIntern/EditIntern";
 import InternList from "./components/pages/InternList/InternList";
+import NotFoundPage from "./components/pages/NotFoundPage/NotFoundPage";
 
 function App() {
   const [theme, setTheme] = useState("light");
@@ -37,6 +38,7 @@ function App() {
       <Routes>
         <Route path="/interns/:id" exact element={<EditIntern />} />
         <Route path="/" element={<InternList />} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
       <button onClick={() => themeToggler()}>Change Theme</button>

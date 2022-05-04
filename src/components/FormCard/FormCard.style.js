@@ -23,7 +23,7 @@ export const Label = styled.label`
 
   font-weight: 500;
   font-size: 18px;
-  color: black;
+  color: ${(props) => props.theme.fontColor};
 `;
 
 export const StyledField = styled(Field)`
@@ -32,10 +32,11 @@ export const StyledField = styled(Field)`
   padding: 12px 16px;
   width: 100%;
   height: 48px;
-  background: #f7f7f7;
+  background: ${(props) => props.theme.background};
   font-family: "Roboto";
   font-size: 18px;
-  color: black;
+  color: ${(props) => props.theme.fontColor};
+  border: 1px solid ${(props) => props.theme.fontColor};
   &:focus {
     border: 2px solid #222222;
     box-shadow: 0px 0px 0px 2px #d3f2ff;
@@ -58,10 +59,36 @@ export const StyledInlineErrorMessage = styled(ErrorMessage)`
   }
 `;
 
+export const DateContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: 152px;
+`;
+export const DatePickerContainer = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  .date-picker input {
+    align-self: flex-start;
+    margin-top: 8px;
+    padding: 12px 16px;
+    width: 100%;
+    height: 48px;
+    background: ${(props) => props.theme.background};
+    font-family: "Roboto";
+    font-size: 18px;
+    color: ${(props) => props.theme.fontColor};
+    border: 1px solid ${(props) => props.theme.fontColor};
+  }
+`;
+
 export const Button = styled.button`
   width: 224px;
   height: 48px;
   background-color: black;
+  border: 2px solid black;
   font-family: "Roboto";
   font-size: 16px;
   line-height: 48px;

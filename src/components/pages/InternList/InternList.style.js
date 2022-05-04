@@ -22,14 +22,14 @@ export const List = styled.ul`
     min-width: 250px;
     height: 64px;
     padding: 8px 24px;
-    background: #f2f2f2;
+    background: ${(props) => props.theme.colors.secondary};
     transition: 0.3s;
     &:nth-child(odd) {
-      background: #ededed;
+      background: ${(props) => props.theme.colors.primary};
     }
     @media (min-width: 700px) {
       &:hover {
-        background: #f7f7f7;
+        background: ${(props) => props.theme.colors.tertiary};
         border: 2px solid #222222;
       }
     }
