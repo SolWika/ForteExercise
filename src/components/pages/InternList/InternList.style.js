@@ -29,7 +29,7 @@ export const List = styled.ul`
     }
     @media (min-width: 700px) {
       &:hover {
-        background: ${(props) => props.theme.colors.secondary};
+        background: ${(props) => props.theme.colors.tertiary};
         border: 2px solid #222222;
       }
     }

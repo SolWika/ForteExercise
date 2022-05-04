@@ -9,6 +9,7 @@ export const lightTheme = {
   colors: {
     primary: "#ededed",
     secondary: "#f2f2f2",
+    tertiary: "#f2f2f2",
     warning: "#A3270C",
   },
 };

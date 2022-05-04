@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router";
 import { Formik } from "formik";
 import {
   EditForm,
@@ -18,7 +17,6 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import en from "date-fns/locale/es";
 
 export const FormCard = ({ intern }) => {
-  const navigate = useNavigate();
   const [startDate, setStartDate] = useState(new Date(intern.internshipStart));
   const [endDate, setEndDate] = useState(new Date(intern.internshipEnd));
   registerLocale("en", en);
@@ -70,7 +68,6 @@ export const FormCard = ({ intern }) => {
             body: JSON.stringify(data),
           });
           setSubmitting(false);
-          // navigate("/");
         }}
       >
         {({ isSubmitting, errors, touched, values, setFieldValue }) => (

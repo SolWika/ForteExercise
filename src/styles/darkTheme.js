@@ -9,6 +9,7 @@ export const darkTheme = {
   colors: {
     primary: "#373737",
     secondary: "#535151",
+    tertiary: "#828282",
     warning: "#A3270C",
   },
 };
