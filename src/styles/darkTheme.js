@@ -4,7 +4,7 @@ export const darkTheme = {
   fontColor: "#dedede",
   buttons: {
     background: "#222222",
-    text: "#FFFFFF",
+    text: "#dedede",
   },
   colors: {
     primary: "#373737",
